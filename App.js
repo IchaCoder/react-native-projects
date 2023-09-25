@@ -1,60 +1,50 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import DiceOne from "./assets/One.png";
-import DiceTwo from "./assets/Two.png";
-import DiceThree from "./assets/Three.png";
-import DiceFour from "./assets/Four.png";
-import DiceFive from "./assets/Five.png";
-import DiceSix from "./assets/Six.png";
+import { StyleSheet, Text, View, Button } from "react-native";
+//for vibration on btton click
 import * as Haptics from "expo-haptics";
-
-const Dice = ({ imgUrl }) => {
-	return (
-		<View>
-			<Image style={styles.diceImage} source={imgUrl} />
-		</View>
-	);
-};
+import { SnackBar } from "react-native-simple-snackbar";
+// import Snackbar from "react-native-snackbar";
+// import Snackbar from "react-native-snackbar";
 
 export default function App() {
-	const [diceImage, setDiceImage] = useState(DiceOne);
-	const rollDiceOnTop = () => {
-		let randomNumber = Math.floor(Math.random() * 6) + 1;
+	const [inputValue, setInputValue] = useState("");
+	const [resultValue, setResultValue] = useState("");
+	const [targetCurrency, setTargetCurrency] = useState("");
+	const [status, setStatus] = useState();
 
-		switch (randomNumber) {
-			case 1:
-				setDiceImage(DiceOne);
-				break;
+	// const buttonPressed = (targetValue) => {
+	// 	if (!inputValue) {
+	// 		return Snackbar.show({
+	// 			text: "Enter a value to convert",
+	// 			backgroundColor: "#ea7773",
+	// 			// duration: Snackbar.LENGTH_LONG,
+	// 		});
+	// 	}
 
-			case 2:
-				setDiceImage(DiceTwo);
-				break;
-			case 3:
-				setDiceImage(DiceThree);
-				break;
-			case 4:
-				setDiceImage(DiceFour);
-				break;
-			case 5:
-				setDiceImage(DiceFive);
-				break;
-			case 6:
-				setDiceImage(DiceSix);
-				break;
-			default:
-				setDiceImage(DiceOne);
-				break;
-		}
+	// 	const inputAmount = parseFloat(inputValue);
+	// 	if (!isNaN(inputAmount)) {
+	// 		const convertedValue = inputAmount * targetValue.inputValue;
+	// 		const result = `${targetValue.symbol} ${convertedValue.toFixed(2)}`;
+	// 		setResultValue(result);
+	// 		setTargetCurrency(targetValue.name);
+	// 	} else {
+	// 		return Snackbar.show({
+	// 			text: "Enter a valid number",
+	// 			backgroundColor: "#f4be2c",
+	// 			// duration: Snackbar.LENGTH_LONG,
+	// 		});
+	// 	}
+	// };
 
-		Haptics.selectionAsync();
-	};
 	return (
 		<View style={styles.container}>
-			<Dice imgUrl={diceImage} />
-			<Pressable onPress={rollDiceOnTop}>
-				<Text style={styles.button}>Roll the dice</Text>
-			</Pressable>
+			<Text>Currency Convertor</Text>
+			<Button
+				title="Selection"
+				onPress={() => setStatus({ content: "My SnackBar Works!!" })}
+			/>
+			<SnackBar setSnackBar={status} />
 		</View>
 	);
 }
@@ -62,24 +52,59 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "#F5FCFF",
-		marginTop: 50,
+		backgroundColor: "#515151",
+		marginTop: 40,
 	},
-	diceImage: {
+	topContainer: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "space-evenly",
+	},
+	resultTxt: {
+		fontSize: 32,
+		color: "#000000",
+		fontWeight: "800",
+	},
+	rupee: {
+		marginRight: 8,
+
+		fontSize: 22,
+		color: "#000000",
+		fontWeight: "800",
+	},
+	rupeesContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+	},
+	inputAmountField: {
+		height: 40,
 		width: 200,
-		height: 200,
+		padding: 8,
+		borderWidth: 1,
+		borderRadius: 4,
+		backgroundColor: "#FFFFFF",
+	},
+	bottomContainer: {
+		flex: 3,
 	},
 	button: {
-		paddingVertical: 10,
-		paddingHorizontal: 40,
-		borderWidth: 2,
-		borderRadius: 8,
-		borderColor: "#E5E0FF",
-		fontSize: 16,
-		color: "#8EA7E9",
-		fontWeight: "700",
-		textTransform: "uppercase",
+		flex: 1,
+
+		margin: 12,
+		height: 60,
+
+		borderRadius: 12,
+		backgroundColor: "#fff",
+		elevation: 2,
+		shadowOffset: {
+			width: 1,
+			height: 1,
+		},
+		shadowColor: "#333",
+		shadowOpacity: 0.1,
+		shadowRadius: 1,
+	},
+	selected: {
+		backgroundColor: "#ffeaa7",
 	},
 });
