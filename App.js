@@ -45,6 +45,7 @@ export default function App() {
 				onPress={() => setStatus({ content: "My SnackBar Works!!" })}
 			/>
 			<SnackBar setSnackBar={status} />
+			<Text>Hello world</Text>
 		</View>
 	);
 }
